@@ -13,6 +13,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     on<HomeEvent>((event, emit) {});
     on<InitialEvent>(initialEvent);
+    on<ToDoPutEvent>(toDoPutEvent);
   }
 
   FutureOr<void> initialEvent(
@@ -69,5 +70,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     );
 
     return getData;
+  }
+
+  FutureOr<void> toDoPutEvent(
+      ToDoPutEvent event, Emitter<HomeState> emit) async {
+    emit(ToDoPutLoading());
+    final repository = HomeUseCasePut();
+    final results = await repository.invoke(event.id, event.isComplete);
+    GetData getData = await fetchTodos();
+    getData.todos?[event.id - 1].completed = !event.isComplete;
+    emit(HomeInitialSuccess(getData: await fetchTodos()));
   }
 }

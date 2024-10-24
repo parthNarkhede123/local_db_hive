@@ -17,3 +17,9 @@ class HomeInitialFailure extends HomeState {
 }
 
 class HomeInitialLoading extends HomeState {}
+
+class ToDoPutLoading extends HomeState {}
+
+class ToDoPutSuccess extends HomeState {}
+
+class ToDoPutFailure extends HomeState {}

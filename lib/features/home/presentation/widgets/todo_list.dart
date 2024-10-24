@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:local_db/features/home/data/models/get_data_response.dart';
+import 'package:local_db/features/home/presentation/bloc/bloc.dart';
 
 class ListWidget extends StatelessWidget {
   final GetData getData;
@@ -34,7 +36,9 @@ class ListWidget extends StatelessWidget {
               trailing: Checkbox(
                 value: getData.todos?[index].completed,
                 onChanged: (bool? value) {
-                  // Handle checkbox state change if needed
+                  BlocProvider.of<HomeBloc>(context).add(ToDoPutEvent(
+                      id: getData.todos?[index].id ?? 0,
+                      isComplete: getData.todos?[index].completed ?? false));
                 },
                 activeColor: Colors.green,
               ),

@@ -29,4 +29,13 @@ class ApiHandler {
       throw Exception('Failed to post data: $e');
     }
   }
+
+  Future<Response> put(String endpoint, {Map<String, dynamic>? data}) async {
+    try {
+      final response = await _dio.put(endpoint, data: data);
+      return response;
+    } catch (e) {
+      throw Exception('Failed to put data: $e');
+    }
+  }
 }

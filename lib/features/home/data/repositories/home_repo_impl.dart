@@ -21,4 +21,20 @@ class HomeRepositoryImpl implements HomeRepository {
       return Left(ServerFailure(message: "Error: $e"));
     }
   }
+
+  @override
+  Future<Either<Failure, dynamic>> changeResults(
+      int id, bool isCompleted) async {
+    try {
+      final response = await _apiHandler
+          .put('/todos/${id}', data: {'completed': !isCompleted});
+      if (response.statusCode == 200) {
+        return Right(response.data);
+      } else {
+        return Left(ServerFailure(message: "Error: ${response.statusCode}"));
+      }
+    } catch (e) {
+      return Left(ServerFailure(message: "Error: $e"));
+    }
+  }
 }

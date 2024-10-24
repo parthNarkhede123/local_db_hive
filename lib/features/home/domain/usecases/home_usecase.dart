@@ -10,3 +10,11 @@ class HomeUseCase implements UseCaseNoInput<dynamic> {
     return await HomeRepositoryImpl(ApiHandler()).fetchResults();
   }
 }
+
+class HomeUseCasePut implements UseCaseTwoInput<int, bool, dynamic> {
+  @override
+  Future<Either<Failure, dynamic>> invoke(int id, bool isCompleted) async {
+    return await HomeRepositoryImpl(ApiHandler())
+        .changeResults(id, isCompleted);
+  }
+}
